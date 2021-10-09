@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.musicwiki.R
+import com.example.musicwiki.adapters.WelcomeGenreAdapter
 import com.example.musicwiki.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
@@ -20,8 +21,11 @@ class WelcomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
+       val items = arrayListOf("Rock 1","Rock 2","Rock 3","Rock 3","Rock 3","Rock 3","Rock 3","Rock 3","Rock 3")
+        binding.apply {
+            lstGenre.adapter = WelcomeGenreAdapter(requireContext(),R.layout.list_item_genre,items)
+        }
         return binding.root
     }
 }

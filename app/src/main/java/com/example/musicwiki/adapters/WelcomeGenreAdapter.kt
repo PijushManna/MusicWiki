@@ -15,4 +15,5 @@ class WelcomeGenreAdapter(context: Context, private val res: Int, items: ArrayLi
         }
         return v!!
     }
+
 }

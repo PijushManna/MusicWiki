@@ -71,10 +71,23 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
+            android:numColumns="3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_expansion" />
+            app:layout_constraintTop_toBottomOf="@+id/lbl_expansion"
+            tools:ignore="DuplicateClickableBoundsCheck,DuplicateSpeakableTextCheck" />
+
+        <ExpandableListView
+            android:id="@+id/expendable_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:divider="@android:color/background_light"
+            android:dividerHeight="0.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lst_genre" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
