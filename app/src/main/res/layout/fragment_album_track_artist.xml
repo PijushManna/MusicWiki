@@ -9,18 +9,19 @@
             type="com.example.musicwiki.MainViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/frameLayout3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.AlbumTrackArtistFragment">
+        android:layout_height="match_parent">
 
-        <GridView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lst_items"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            android:orientation="vertical"
+            tools:listitem="@layout/list_item_album_tracks_artist"/>
+
+    </FrameLayout>
 </layout>
