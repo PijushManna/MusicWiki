@@ -8,11 +8,14 @@ import com.example.musicwiki.repo.local.genre.Genre
 
 
 class MainViewModel(application: Application) : AndroidViewModel(application){
-    val genre:LiveData<List<Genre>>
+    val shortGenre:LiveData<List<Genre>>
+    val allGenre:LiveData<List<Genre>>
     init {
         Repository.init(application.applicationContext)
-        genre = Repository.getGenre(10)
-    }
-    fun toggleItemsCount(){
+        shortGenre = Repository.getShortGenre()
+        allGenre = Repository.getAllGenre()
+//        if (allGenre.value!!.isEmpty()){
+            Repository.fetchGenreFromNetwork()
+//        }
     }
 }

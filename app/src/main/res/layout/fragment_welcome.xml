@@ -16,6 +16,7 @@
         tools:context=".ui.genrehome.WelcomeFragment">
 
         <!-- TODO: Update blank fragment layout -->
+
         <TextView
             android:id="@+id/lbl_title"
             android:layout_width="wrap_content"
@@ -47,24 +48,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/choose_a_genre_to_start_with"
-            app:layout_constraintEnd_toStartOf="@+id/img_dropdown"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lbl_subtitle" />
 
-        <ImageView
-            android:id="@+id/img_dropdown"
-            android:layout_width="20dp"
-            android:layout_height="21dp"
+        <ToggleButton
+            android:id="@+id/btn_toggle_genre"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:contentDescription="@string/welcome"
-            android:src="@drawable/ic_baseline_arrow_drop_down_circle_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/lbl_expansion"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_subtitle" />
+            android:background="@drawable/toggle_button_background"
+            android:textOff=" "
+            android:textOn=" "
+            app:layout_constraintBaseline_toBaselineOf="@+id/lbl_expansion"
+            app:layout_constraintStart_toEndOf="@+id/lbl_expansion" />
 
         <Button
             android:id="@+id/button2"
@@ -75,7 +73,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <GridView
-            android:id="@+id/lst_genre"
+            android:id="@+id/lst_genre_short"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
@@ -84,6 +82,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lbl_expansion"
+            tools:ignore="DuplicateClickableBoundsCheck,DuplicateSpeakableTextCheck"
+            app:list="@{model.shortGenre}"/>
+
+        <GridView
+            android:id="@+id/lst_genre_long"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            android:numColumns="3"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_expansion"
+            app:list="@{model.allGenre}"
             tools:ignore="DuplicateClickableBoundsCheck,DuplicateSpeakableTextCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

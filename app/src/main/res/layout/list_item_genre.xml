@@ -11,7 +11,7 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkable="true"
+        android:checkable="false"
         android:maxLines="2"
         android:text="Rock"
         app:layout_constraintEnd_toEndOf="parent"

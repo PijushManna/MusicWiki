@@ -12,4 +12,10 @@ interface GenreDAO {
 
     @Query("SELECT * FROM genre LIMIT :lim")
     fun getData(lim:Int):LiveData<List<Genre>>
+
+    @Query("SELECT * FROM genre")
+    fun getAllData():LiveData<List<Genre>>
+
+    @Query("SELECT Count(id) FROM genre")
+    fun getCount():Int
 }

@@ -1,10 +1,7 @@
 package com.example.musicwiki
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import com.example.musicwiki.databinding.ActivityMainBinding
 import com.example.musicwiki.repo.Repository
 
 
@@ -16,23 +13,10 @@ import com.example.musicwiki.repo.Repository
 * */
 
 class MainActivity : AppCompatActivity() {
-    private val binding: ActivityMainBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
-    private val viewModel by lazy {
-        MainViewModel(application)
-    }
-    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        binding.lifecycleOwner = this
-        binding.model =viewModel
-
+        setContentView(R.layout.activity_main)
         Repository.init(applicationContext)
-        viewModel.genre.observe(this,{
-            Log.i("Response",it.toString())
-        })
     }
 }

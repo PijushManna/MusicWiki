@@ -36,7 +36,7 @@ class AlbumPagerFragment : Fragment() {
             )
         )
         adapter.notifyDataSetChanged()
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 }
