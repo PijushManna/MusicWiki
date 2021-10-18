@@ -11,12 +11,20 @@
         android:label="WelcomeFragment" >
         <action
             android:id="@+id/action_welcomeFragment_to_genreFragment2"
-            app:destination="@id/genreFragment" />
+            app:destination="@id/genreFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/genreFragment"
         android:name="com.example.musicwiki.ui.genrehome.GenreFragment"
-        android:label="GenreFragment" />
+        android:label="GenreFragment" >
+        <action
+            android:id="@+id/action_genreFragment_to_albumDetailsFragment"
+            app:destination="@id/albumDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/albumDetailsFragment"
         android:name="com.example.musicwiki.ui.albums.AlbumDetailsFragment"

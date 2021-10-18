@@ -1,20 +1,20 @@
-package com.example.musicwiki.ui.genrehome
+package com.example.musicwiki.ui.tracks
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.musicwiki.adapters.ArtistsAdapter
+import com.example.musicwiki.adapters.TracksAdapter
 import com.example.musicwiki.databinding.FragmentAlbumTrackArtistBinding
-import com.example.musicwiki.models.Artists
+import com.example.musicwiki.models.Tracks
 
-class ArtistPagerFragment : Fragment() {
+class TracksPagerFragment : Fragment() {
 
     private val binding: FragmentAlbumTrackArtistBinding by lazy {
         FragmentAlbumTrackArtistBinding.inflate(layoutInflater)
     }
-    private val adapter = ArtistsAdapter()
+    private val adapter = TracksAdapter()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,14 +24,14 @@ class ArtistPagerFragment : Fragment() {
         }
         adapter.submitList(
             mutableListOf(
-//                Artists(1,"2","1"),
-//                Artists(2,"2","1"),
-//                Artists(3,"2","1"),
-//                Artists(4,"2","1"),
-//                Artists(1,"2","1"),
-//                Artists(1,"2","1"),
-//                Artists(1,"2","1"),
-//                Artists(1,"2","1"),
+                Tracks(1,"3","1"),
+                Tracks(2,"3","1"),
+                Tracks(3,"3","1"),
+                Tracks(4,"3","1"),
+                Tracks(1,"3","1"),
+                Tracks(1,"3","1"),
+                Tracks(1,"3","1"),
+                Tracks(1,"3","1"),
             )
         )
         adapter.notifyDataSetChanged()

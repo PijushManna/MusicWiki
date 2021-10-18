@@ -1,20 +1,19 @@
 package com.example.musicwiki.ui.genrehome
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.musicwiki.MainViewModel
 import com.example.musicwiki.R
-import com.example.musicwiki.adapters.WelcomeGenreAdapter
 import com.example.musicwiki.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
-
     private val binding: FragmentWelcomeBinding by lazy {
         FragmentWelcomeBinding.inflate(layoutInflater)
     }
@@ -27,20 +26,17 @@ class WelcomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding.lifecycleOwner = viewLifecycleOwner
+
+        //Setup Views
         binding.apply {
             model = viewModel
             lstGenreShort.adapter = WelcomeGenreAdapter(
-                requireContext(), R.layout.list_item_genre,
-                arrayListOf()
+                requireContext(),viewModel , arrayListOf()
             )
             lstGenreLong.adapter = WelcomeGenreAdapter(
-                requireContext(), R.layout.list_item_genre, arrayListOf()
+                requireContext(),viewModel, arrayListOf()
             )
-            button2.setOnClickListener {
-               navController.navigate(R.id.action_welcomeFragment_to_genreFragment2)
-            }
             btnToggleGenre.setOnCheckedChangeListener { _, b ->
                 if(b){
                     lstGenreShort.visibility = View.GONE
@@ -50,9 +46,20 @@ class WelcomeFragment : Fragment() {
                     lstGenreLong.visibility = View.GONE
                 }
             }
+            btnUp.setOnClickListener{
+                findNavController().navigateUp()
+            }
+        }
+
+        //Added Observers
+        viewModel.changeDestination.observe(viewLifecycleOwner,{
+            if (it) findNavController().navigate(R.id.action_welcomeFragment_to_genreFragment2)
+        })
+
+        findNavController().addOnDestinationChangedListener { _, _, _ ->
+            viewModel.changeDestination.value = false
         }
 
         return binding.root
     }
-
 }

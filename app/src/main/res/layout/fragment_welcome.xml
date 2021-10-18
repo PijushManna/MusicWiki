@@ -64,32 +64,26 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/lbl_expansion"
             app:layout_constraintStart_toEndOf="@+id/lbl_expansion" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
         <GridView
             android:id="@+id/lst_genre_short"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
+            android:gravity="center"
             android:numColumns="3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lbl_expansion"
-            tools:ignore="DuplicateClickableBoundsCheck,DuplicateSpeakableTextCheck"
-            app:list="@{model.shortGenre}"/>
+            app:list="@{model.shortGenre}"
+            tools:ignore="DuplicateClickableBoundsCheck,DuplicateSpeakableTextCheck" />
 
         <GridView
             android:id="@+id/lst_genre_long"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
+            android:gravity="center"
             android:numColumns="3"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -98,6 +92,20 @@
             app:layout_constraintTop_toBottomOf="@+id/lbl_expansion"
             app:list="@{model.allGenre}"
             tools:ignore="DuplicateClickableBoundsCheck,DuplicateSpeakableTextCheck" />
+
+        <ImageButton
+            android:id="@+id/btn_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
