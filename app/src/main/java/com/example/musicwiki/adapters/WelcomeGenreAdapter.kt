@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
+import com.example.musicwiki.R
 
 class WelcomeGenreAdapter(context: Context, private val res: Int, items: ArrayList<String>) :
     ArrayAdapter<String>(context, res, items) {
@@ -13,7 +15,9 @@ class WelcomeGenreAdapter(context: Context, private val res: Int, items: ArrayLi
         if (v == null) {
             v = LayoutInflater.from(context).inflate(res, parent, false)
         }
-        return v!!
+        val imgTag:Button = v!!.findViewById(R.id.btn_genre)
+        imgTag.text = getItem(position)
+        return v
     }
 
 }

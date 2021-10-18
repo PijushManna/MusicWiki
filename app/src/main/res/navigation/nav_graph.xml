@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.example.musicwiki.ui.WelcomeFragment"
+        android:name="com.example.musicwiki.ui.genrehome.WelcomeFragment"
         android:label="WelcomeFragment" >
         <action
             android:id="@+id/action_welcomeFragment_to_genreFragment2"

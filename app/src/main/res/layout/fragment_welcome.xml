@@ -13,7 +13,7 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.WelcomeFragment">
+        tools:context=".ui.genrehome.WelcomeFragment">
 
         <!-- TODO: Update blank fragment layout -->
         <TextView
@@ -85,18 +85,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lbl_expansion"
             tools:ignore="DuplicateClickableBoundsCheck,DuplicateSpeakableTextCheck" />
-
-        <ExpandableListView
-            android:id="@+id/expendable_list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:divider="@android:color/background_light"
-            android:dividerHeight="0.5dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/lst_genre" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

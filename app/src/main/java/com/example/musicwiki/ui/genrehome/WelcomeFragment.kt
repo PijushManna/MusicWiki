@@ -1,6 +1,7 @@
-package com.example.musicwiki.ui
+package com.example.musicwiki.ui.genrehome
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,19 +19,20 @@ class WelcomeFragment : Fragment() {
     private val navController by lazy {
         this.findNavController()
     }
+    private val toggleItems = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-       val items = arrayListOf("Rock 1","Rock 2","Rock 3","Rock 3","Rock 3","Rock 3","Rock 3","Rock 3","Rock 3")
+       val items = arrayListOf<String>()
+        val adapter = WelcomeGenreAdapter(requireContext(),R.layout.list_item_genre,items)
         binding.apply {
-            lstGenre.adapter = WelcomeGenreAdapter(requireContext(),R.layout.list_item_genre,items)
+            lstGenre.adapter = adapter
             button2.setOnClickListener {
                navController.navigate(R.id.action_welcomeFragment_to_genreFragment2)
             }
         }
-
         return binding.root
     }
 }

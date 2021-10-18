@@ -13,7 +13,7 @@ class ArtistsAdapter : ListAdapter<Artists, ArtistsAdapter.ViewHolder>(AlbumArti
     class ViewHolder(private val binding: ListItemAlbumTracksArtistBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Artists){
-            binding.textView3.text = item.title
+           //TODO TBI
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,11 +28,11 @@ class ArtistsAdapter : ListAdapter<Artists, ArtistsAdapter.ViewHolder>(AlbumArti
     companion object{
         class AlbumArtistsTracksDiffUtilCallback : DiffUtil.ItemCallback<Artists>(){
             override fun areItemsTheSame(oldItem: Artists, newItem: Artists): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem == newItem
             }
 
             override fun areContentsTheSame(oldItem: Artists, newItem: Artists): Boolean {
-                return oldItem == newItem
+                return oldItem.equals(newItem)
             }
 
         }

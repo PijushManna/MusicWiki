@@ -1,9 +1,12 @@
 package com.example.musicwiki
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import com.example.musicwiki.databinding.ActivityMainBinding
+import com.example.musicwiki.repo.Repository
+
 
 /*
 * Application name	MusicWiki
@@ -13,7 +16,7 @@ import com.example.musicwiki.databinding.ActivityMainBinding
 * */
 
 class MainActivity : AppCompatActivity() {
-    private val binding:ActivityMainBinding by lazy {
+    private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
     private val viewModel by lazy {
@@ -24,5 +27,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        binding.lifecycleOwner = this
+        binding.model =viewModel
+
+        Repository.init(applicationContext)
+        viewModel.genre.observe(this,{
+            Log.i("Response",it.toString())
+        })
     }
 }

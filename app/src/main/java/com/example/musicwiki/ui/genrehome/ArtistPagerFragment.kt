@@ -24,14 +24,14 @@ class ArtistPagerFragment : Fragment() {
         }
         adapter.submitList(
             mutableListOf(
-                Artists(1,"2","1"),
-                Artists(2,"2","1"),
-                Artists(3,"2","1"),
-                Artists(4,"2","1"),
-                Artists(1,"2","1"),
-                Artists(1,"2","1"),
-                Artists(1,"2","1"),
-                Artists(1,"2","1"),
+//                Artists(1,"2","1"),
+//                Artists(2,"2","1"),
+//                Artists(3,"2","1"),
+//                Artists(4,"2","1"),
+//                Artists(1,"2","1"),
+//                Artists(1,"2","1"),
+//                Artists(1,"2","1"),
+//                Artists(1,"2","1"),
             )
         )
         adapter.notifyDataSetChanged()
