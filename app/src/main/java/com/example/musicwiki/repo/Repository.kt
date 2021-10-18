@@ -9,7 +9,8 @@ import com.android.volley.toolbox.Volley
 import com.example.musicwiki.repo.local.genre.Genre
 import com.example.musicwiki.repo.local.genre.GenreDAO
 import com.example.musicwiki.repo.local.genre.GenreDatabase
-import com.example.musicwiki.repo.network.topgenre.NetworkGenre
+import com.example.musicwiki.repo.network.genreinfo.TagInfo
+import com.example.musicwiki.repo.network.topgenre.TopTagInfo
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +19,8 @@ import kotlinx.coroutines.launch
 object Repository {
     private const val TAG = "REPOSITORY"
     private const val BASE_URL = "http://ws.audioscrobbler.com/2.0/"
-    private const val apiKey = "8bfe4bd8ae71bd4dda4b58cc138e1035"
-    private const val format = "json"
+    private const val API_KEY = "8bfe4bd8ae71bd4dda4b58cc138e1035"
+    private const val FORMAT = "json"
     private lateinit var genreDatabase: GenreDAO
     private lateinit var requestQueue: RequestQueue
     private val gson = GsonBuilder().create()
@@ -40,10 +41,10 @@ object Repository {
     }
 
     private fun fetchGenreFromNetwork() {
-        val url = "$BASE_URL?method=tag.getTopTags&api_key=$apiKey&format=$format&offset=$offset"
+        val url = "$BASE_URL?method=tag.getTopTags&api_key=$API_KEY&format=$FORMAT&offset=$offset"
         val request = StringRequest(url, { it ->
             CoroutineScope(Dispatchers.IO).launch {
-                val res = gson.fromJson(it, NetworkGenre::class.java)
+                val res = gson.fromJson(it, TopTagInfo::class.java)
                 res.toptags.tag.toSet().forEach {
                     if (it.name != null) {
                         genreDatabase.insert(
@@ -63,7 +64,21 @@ object Repository {
         offset += 50
     }
 
-    fun fetchGenreInfo(){}
+    fun fetchGenreInfo(item:Genre):LiveData<Genre>{
+        val url = "$BASE_URL?method=tag.getinfo&tag=${item.name}&api_key=$API_KEY&format=$FORMAT"
+        val request = StringRequest(url, { it ->
+            CoroutineScope(Dispatchers.IO).launch {
+                val res = gson.fromJson(it, TagInfo::class.java)
+                item.content = res.tag?.wiki?.content
+                item.summery = res.tag?.wiki?.summary
+                genreDatabase.update(item)
+            }
+        }, {
+            Log.e(TAG, it.localizedMessage!!)
+        })
+        requestQueue.add(request)
+        return genreDatabase.getItemById(item.id)
+    }
 
     fun getShortGenre(): LiveData<List<Genre>> {
         return genreDatabase.getData(10)

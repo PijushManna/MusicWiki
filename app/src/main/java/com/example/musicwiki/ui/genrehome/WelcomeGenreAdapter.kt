@@ -19,8 +19,8 @@ class WelcomeGenreAdapter(context: Context,private val viewModel: MainViewModel,
         val binding = ListItemGenreBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         binding.btnTag.text = getItem(position)
         binding.btnTag.setOnClickListener {
-            viewModel.selectedGenre.value = viewModel.allGenre.value?.get(position)
             viewModel.changeDestination.value = true
+            viewModel.allGenre.value?.get(position)?.let { it1 -> viewModel.fetchInfo(it1) }
         }
         return binding.root
     }

@@ -11,12 +11,16 @@ import com.example.musicwiki.repo.local.genre.Genre
 class MainViewModel(application: Application) : AndroidViewModel(application){
     val shortGenre:LiveData<List<Genre>>
     val allGenre:LiveData<List<Genre>>
-    val selectedGenre = MutableLiveData<Genre>()
+    lateinit var selectedGenre:LiveData<Genre>
     val changeDestination = MutableLiveData<Boolean>()
 
     init {
         Repository.init(application.applicationContext)
         shortGenre = Repository.getShortGenre()
         allGenre = Repository.getAllGenre()
+    }
+
+    fun fetchInfo(item:Genre){
+        selectedGenre = Repository.fetchGenreInfo(item)
     }
 }

@@ -4,11 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface GenreDAO {
     @Insert
     suspend fun insert(item:Genre)
+
+    @Update
+    suspend fun update(item:Genre)
 
     @Query("SELECT * FROM genre LIMIT :lim")
     fun getData(lim:Int):LiveData<List<Genre>>
@@ -18,4 +22,7 @@ interface GenreDAO {
 
     @Query("SELECT Count(id) FROM genre")
     fun getCount():Int
+
+    @Query("SELECT * from genre WHERE id =:key")
+    fun getItemById(key:Long):LiveData<Genre>
 }

@@ -36,10 +36,11 @@ class GenreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            model = viewModel
             tabPages.setupWithViewPager(pgrTabs)
             pgrTabs.adapter = GenrePagesAdapter(requireActivity().supportFragmentManager, fragments)
             btnBack.setOnClickListener {
-                viewModel.selectedGenre.value = null
                 findNavController().navigateUp()
             }
         }
