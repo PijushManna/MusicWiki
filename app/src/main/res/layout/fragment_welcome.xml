@@ -96,13 +96,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lbl_expansion"
-<<<<<<< HEAD
             app:list="@{model.allGenre}"
             tools:ignore="DuplicateClickableBoundsCheck,DuplicateSpeakableTextCheck" />
-=======
-            tools:ignore="DuplicateClickableBoundsCheck,DuplicateSpeakableTextCheck"
-            app:list="@{model.genre}"/>
->>>>>>> c3711175f4ff84df0808f56c51285c3be4dd09f8
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

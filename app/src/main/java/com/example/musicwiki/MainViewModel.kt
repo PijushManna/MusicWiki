@@ -14,8 +14,5 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
         Repository.init(application.applicationContext)
         shortGenre = Repository.getShortGenre()
         allGenre = Repository.getAllGenre()
-//        if (allGenre.value!!.isEmpty()){
-            Repository.fetchGenreFromNetwork()
-//        }
     }
 }

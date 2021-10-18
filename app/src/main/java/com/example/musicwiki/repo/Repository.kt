@@ -39,7 +39,7 @@ object Repository {
         }
     }
 
-    fun fetchGenreFromNetwork() {
+    private fun fetchGenreFromNetwork() {
         val url = "$BASE_URL?method=tag.getTopTags&api_key=$apiKey&format=$format&offset=$offset"
         val request = StringRequest(url, { it ->
             CoroutineScope(Dispatchers.IO).launch {
@@ -62,6 +62,8 @@ object Repository {
         requestQueue.add(request)
         offset += 50
     }
+
+    fun fetchGenreInfo(){}
 
     fun getShortGenre(): LiveData<List<Genre>> {
         return genreDatabase.getData(10)
