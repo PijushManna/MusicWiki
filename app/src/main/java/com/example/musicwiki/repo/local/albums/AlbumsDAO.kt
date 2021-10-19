@@ -1,5 +1,6 @@
 package com.example.musicwiki.repo.local.albums
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -11,4 +12,7 @@ interface AlbumsDAO {
 
     @Query("SELECT COUNT(id) FROM albums WHERE tag = :tagName")
     fun getCount(tagName:String):Int
+
+    @Query("SELECT * FROM albums")
+    fun getAllData():LiveData<List<Albums>>
 }

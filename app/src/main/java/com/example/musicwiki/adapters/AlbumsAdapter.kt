@@ -6,16 +6,17 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.musicwiki.R
-import com.example.musicwiki.databinding.FragmentAlbumTrackArtistBinding
 import com.example.musicwiki.databinding.ListItemAlbumTracksArtistBinding
-import com.example.musicwiki.models.Albums
+import com.example.musicwiki.repo.local.albums.Albums
 
 class AlbumsAdapter : ListAdapter<Albums, AlbumsAdapter.ViewHolder>(AlbumsDiffUtilCallback()) {
     class ViewHolder(private val binding: ListItemAlbumTracksArtistBinding) :
         RecyclerView.ViewHolder(binding.root) {
             fun bind(item:Albums){
-                binding.textView3.text = item.title
+                binding.textView3.text = item.name
+                Glide.with(binding.root.context).load(item.image).into(binding.imageView)
                 binding.root.setOnClickListener {
                     it.findNavController().navigate(R.id.albumDetailsFragment)
                 }
@@ -39,7 +40,6 @@ class AlbumsAdapter : ListAdapter<Albums, AlbumsAdapter.ViewHolder>(AlbumsDiffUt
             override fun areContentsTheSame(oldItem: Albums, newItem: Albums): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 }

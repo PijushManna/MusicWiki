@@ -3,6 +3,7 @@ package com.example.musicwiki.repo
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -13,7 +14,6 @@ import com.example.musicwiki.repo.local.genre.Genre
 import com.example.musicwiki.repo.local.genre.GenreDAO
 import com.example.musicwiki.repo.local.genre.GenreDatabase
 import com.example.musicwiki.repo.network.genreinfo.TagInfo
-import com.example.musicwiki.repo.network.topalbums.NetworkAlbums
 import com.example.musicwiki.repo.network.topalbums.TopAlbums
 import com.example.musicwiki.repo.network.topgenre.TopTagInfo
 import com.google.gson.GsonBuilder
@@ -104,6 +104,10 @@ object Repository {
         }
     }
 
+    fun getAllAlbums(): LiveData<List<Albums>> {
+        return albumsDatabase.getAllData()
+    }
+
     private fun fetchAlbumsFromNetwork(tag: String) {
         val url = "$BASE_URL?method=tag.gettopalbums&tag=$tag&api_key=$API_KEY&format=$FORMAT"
         val request = StringRequest(url, { it ->
@@ -120,7 +124,7 @@ object Repository {
                     mbid = it.mbid
                     url = it.url
                     artist = it.artist?.name
-                    image = it.image?.get(0)?.text
+                    image = it.image?.get(3)?.text
                     ranking = it.attr?.rank
                     
                     if (name != null){
@@ -137,6 +141,21 @@ object Repository {
                     }
                 }
                 
+            }
+        }, {
+            Log.e(TAG, it.localizedMessage!!)
+        })
+        requestQueue.add(request)
+    }
+
+    /* ---- Fetch Top Artists ----- */
+    private fun fetchTopArtistsFromNetwork(tag:String){
+        val topArtists = MutableLiveData<TopArtists>()
+        val url = "$BASE_URL?method=tag.gettopartists&tag=$tag&api_key=$API_KEY&format=$FORMAT"
+        val request = StringRequest(url, { it ->
+            CoroutineScope(Dispatchers.IO).launch {
+                val res = gson.fromJson(it, TopArtists::class.java)
+                topArtists.value = res
             }
         }, {
             Log.e(TAG, it.localizedMessage!!)
