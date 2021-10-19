@@ -24,21 +24,10 @@ class ArtistPagerFragment : Fragment() {
         binding.apply {
             lstItems.adapter = adapter
         }
-        adapter.submitList(
-            mutableListOf(
-//                Artists(1,"2","1"),
-//                Artists(2,"2","1"),
-//                Artists(3,"2","1"),
-//                Artists(4,"2","1"),
-//                Artists(1,"2","1"),
-//                Artists(1,"2","1"),
-//                Artists(1,"2","1"),
-//                Artists(1,"2","1"),
-            )
-        )
-        adapter.notifyDataSetChanged()
         binding.lifecycleOwner = viewLifecycleOwner
-
+        viewModel.topArtists.observe(viewLifecycleOwner,{
+            adapter.submitList(it)
+        })
         return binding.root
     }
 }

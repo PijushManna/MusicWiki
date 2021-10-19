@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.musicwiki.repo.Repository
 import com.example.musicwiki.repo.local.albums.Albums
+import com.example.musicwiki.repo.local.artists.Artists
 import com.example.musicwiki.repo.local.genre.Genre
 import com.example.musicwiki.repo.network.topalbums.Album
 import com.example.musicwiki.repo.network.topalbums.TopAlbums
@@ -17,6 +18,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     val allGenre:LiveData<List<Genre>>
     lateinit var selectedTag:LiveData<Genre>
     lateinit var topAlbums: LiveData<List<Albums>>
+    lateinit var topArtists: LiveData<List<Artists>>
     val changeDestination = MutableLiveData<Boolean>()
     var currentTag:String? = null
 
@@ -30,6 +32,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
         if (item.name.isNotBlank()) {
             selectedTag = Repository.fetchGenreInfo(item)
             topAlbums = Repository.fetchAlbums(item.name)
+            topArtists = Repository.fetchArtists(item.name)
         }
     }
 

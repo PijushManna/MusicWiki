@@ -3,24 +3,47 @@ package com.example.musicwiki.repo.local.tracks
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.musicwiki.repo.network.toptracks.Artist
+import com.example.musicwiki.repo.network.toptracks.Attr
+import com.example.musicwiki.repo.network.toptracks.Image
+import com.example.musicwiki.repo.network.toptracks.Streamable
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "tracks")
 data class Tracks  (
     @PrimaryKey(autoGenerate = true)
     val id:Long = 0L,
 
-    @ColumnInfo(name = "name")
-    var name: String,
+    @SerializedName("name")
+    @Expose
+    var name: String? = null,
 
-    @ColumnInfo(name = "count")
-    var count: Int? = null,
+    @SerializedName("duration")
+    @Expose
+    var duration: String? = null,
 
-    @ColumnInfo(name = "reach")
-    var reach: Int? = null,
+    @SerializedName("mbid")
+    @Expose
+    var mbid: String? = null,
 
-    @ColumnInfo(name = "summery")
-    var summery: String? = null,
+    @SerializedName("url")
+    @Expose
+    var url: String? = null,
 
-    @ColumnInfo(name = "content")
-    var content: String? = null,
+    @SerializedName("streamable")
+    @Expose
+    var streamable: Streamable? = null,
+
+    @SerializedName("artist")
+    @Expose
+    var artist: Artist? = null,
+
+    @SerializedName("image")
+    @Expose
+    var image: String? = null,
+
+    @SerializedName("@attr")
+    @Expose
+    var rank: String? = null
 )

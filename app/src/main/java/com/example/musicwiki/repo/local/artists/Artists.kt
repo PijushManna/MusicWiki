@@ -21,9 +21,6 @@ data class Artists(
     @ColumnInfo(name = "url")
     var url: String? = null,
 
-    @ColumnInfo(name = "artist")
-    var artist: String? = null,
-
     @ColumnInfo(name = "image")
     var image: String? = null,
 

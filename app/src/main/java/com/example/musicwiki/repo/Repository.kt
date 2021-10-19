@@ -11,6 +11,9 @@ import com.example.musicwiki.models.TopArtists
 import com.example.musicwiki.repo.local.albums.Albums
 import com.example.musicwiki.repo.local.albums.AlbumsDAO
 import com.example.musicwiki.repo.local.albums.AlbumsDatabase
+import com.example.musicwiki.repo.local.artists.Artists
+import com.example.musicwiki.repo.local.artists.ArtistsDAO
+import com.example.musicwiki.repo.local.artists.ArtistsDatabase
 import com.example.musicwiki.repo.local.genre.Genre
 import com.example.musicwiki.repo.local.genre.GenreDAO
 import com.example.musicwiki.repo.local.genre.GenreDatabase
@@ -30,12 +33,14 @@ object Repository {
     private const val FORMAT = "json"
     private lateinit var genreDatabase: GenreDAO
     private lateinit var albumsDatabase: AlbumsDAO
+    private lateinit var artistsDatabase: ArtistsDAO
     private lateinit var requestQueue: RequestQueue
     private val gson = GsonBuilder().create()
 
     fun init(context: Context) {
         genreDatabase = GenreDatabase.getInstance(context).genreDAO
         albumsDatabase = AlbumsDatabase.getInstance(context).albumsDAO
+        artistsDatabase = ArtistsDatabase.getInstance(context).artistsDAO
         requestQueue = Volley.newRequestQueue(context)
         CoroutineScope(Dispatchers.Default).launch {
             genreDatabase.getCount().apply {
@@ -98,7 +103,6 @@ object Repository {
     fun fetchAlbums(tag: String): LiveData<List<Albums>> {
         CoroutineScope(Dispatchers.Default).launch {
             albumsDatabase.getCount(tag).apply {
-                Log.i(TAG,"Albums $this")
                 if (this == 0) {
                     fetchAlbumsFromNetwork(tag)
                 }
@@ -148,11 +152,45 @@ object Repository {
     }
 
     /* ---- Fetch Top Artists ----- */
+    fun fetchArtists(tag: String): LiveData<List<Artists>> {
+        CoroutineScope(Dispatchers.Default).launch {
+            artistsDatabase.getCount(tag).apply {
+                if (this == 0) {
+                    fetchTopArtistsFromNetwork(tag)
+                }
+            }
+        }
+        return artistsDatabase.getArtistsByTag(tag)
+    }
     private fun fetchTopArtistsFromNetwork(tag:String){
         val url = "$BASE_URL?method=tag.gettopartists&tag=$tag&api_key=$API_KEY&format=$FORMAT"
         val request = StringRequest(url, { it ->
             CoroutineScope(Dispatchers.IO).launch {
                 val res = gson.fromJson(it, NetworkArtists::class.java)
+                var name: String?
+                var mbid: String?
+                var url: String?
+                var image: String?
+                var ranking: String?
+                res.topartists?.artist?.forEach {
+                    name = it.name
+                    mbid = it.mbid
+                    url = it.url
+                    image = it.image?.get(3)?.text
+                    ranking = it.attr?.rank
+
+                    if (name != null){
+                        val artist  = Artists(
+                            name = name,
+                            tag = tag,
+                            mbid = mbid,
+                            url = url,
+                            image = image,
+                            rank = ranking
+                        )
+                        artistsDatabase.insert(artist)
+                    }
+                }
 
             }
         }, {
@@ -160,4 +198,7 @@ object Repository {
         })
         requestQueue.add(request)
     }
+
+    /* ---- Fetch Top Tracks ---- */
+
 }

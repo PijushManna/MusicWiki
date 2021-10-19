@@ -15,4 +15,7 @@ interface ArtistsDAO {
 
     @Query("SELECT * FROM artists")
     fun getAllData():LiveData<List<Artists>>
+
+    @Query("SELECT * FROM artists WHERE tag =:tag")
+    fun getArtistsByTag(tag:String):LiveData<List<Artists>>
 }
