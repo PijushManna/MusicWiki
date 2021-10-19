@@ -20,6 +20,7 @@ class WelcomeGenreAdapter(context: Context,private val viewModel: MainViewModel,
         binding.btnTag.text = getItem(position)
         binding.btnTag.setOnClickListener {
             viewModel.changeDestination.value = true
+            viewModel.currentTag = getItem(position)
             viewModel.allGenre.value?.get(position)?.let { it1 -> viewModel.fetchInfo(it1) }
         }
         return binding.root

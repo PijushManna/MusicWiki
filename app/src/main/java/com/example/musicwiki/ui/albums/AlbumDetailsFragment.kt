@@ -14,7 +14,6 @@ class AlbumDetailsFragment : Fragment() {
         fun newInstance() = AlbumDetailsFragment()
     }
 
-    private lateinit var viewModel: AlbumDetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +24,6 @@ class AlbumDetailsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AlbumDetailsViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

@@ -18,9 +18,7 @@ class AlbumPagerFragment : Fragment() {
     private val binding: FragmentAlbumTrackArtistBinding by lazy {
         FragmentAlbumTrackArtistBinding.inflate(layoutInflater)
     }
-    private val viewModel:AlbumDetailsViewModel by lazy {
-        AlbumDetailsViewModel()
-    }
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val adapter = AlbumsAdapter()
 
     override fun onCreateView(
@@ -31,12 +29,13 @@ class AlbumPagerFragment : Fragment() {
             lstItems.adapter = adapter
         }
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.model = viewModel
-        Repository.getAllAlbums().observe(viewLifecycleOwner,{
 
-            adapter.submitList(it)
-            Toast.makeText(requireContext(),"${it.size}",Toast.LENGTH_SHORT).show()
+        //Implement Recycler view
+        mainViewModel.topAlbums.observe(viewLifecycleOwner, { it1 ->
+            adapter.submitList(it1)
         })
         return binding.root
     }
+
+
 }

@@ -18,7 +18,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     lateinit var selectedTag:LiveData<Genre>
     lateinit var topAlbums: LiveData<List<Albums>>
     val changeDestination = MutableLiveData<Boolean>()
-    val repository = Repository
+    var currentTag:String? = null
 
     init {
         Repository.init(application.applicationContext)
@@ -29,12 +29,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     fun fetchInfo(item:Genre){
         if (item.name.isNotBlank()) {
             selectedTag = Repository.fetchGenreInfo(item)
-            loadTopAlbums(item.name)
-            topAlbums = Repository.getAllAlbums()
+            topAlbums = Repository.fetchAlbums(item.name)
         }
     }
 
-    private fun loadTopAlbums(q:String){
-        Repository.checkAlbumsExistsForTheTag(tag = q)
-    }
 }

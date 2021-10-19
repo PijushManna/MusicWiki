@@ -3,9 +3,10 @@ package com.example.musicwiki.adapters
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.musicwiki.models.GenreType
 
-class GenrePagesAdapter(fragmentManager: FragmentManager,private val fragments:ArrayList<Pair<Fragment, GenreType>>) : FragmentPagerAdapter(fragmentManager) {
+class GenrePagesAdapter(fragmentManager: FragmentManager,private val fragments:ArrayList<Pair<Fragment, GenreType>>) : FragmentStatePagerAdapter(fragmentManager) {
     override fun getCount(): Int {
        return fragments.size
     }

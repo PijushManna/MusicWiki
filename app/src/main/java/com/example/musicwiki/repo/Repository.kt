@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.musicwiki.models.TopArtists
 import com.example.musicwiki.repo.local.albums.Albums
 import com.example.musicwiki.repo.local.albums.AlbumsDAO
 import com.example.musicwiki.repo.local.albums.AlbumsDatabase
@@ -15,6 +16,7 @@ import com.example.musicwiki.repo.local.genre.GenreDAO
 import com.example.musicwiki.repo.local.genre.GenreDatabase
 import com.example.musicwiki.repo.network.genreinfo.TagInfo
 import com.example.musicwiki.repo.network.topalbums.TopAlbums
+import com.example.musicwiki.repo.network.topartists.NetworkArtists
 import com.example.musicwiki.repo.network.topgenre.TopTagInfo
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -93,7 +95,7 @@ object Repository {
     }
 
     /* ----- Fetch Top Albums ----- */
-    fun checkAlbumsExistsForTheTag(tag: String) {
+    fun fetchAlbums(tag: String): LiveData<List<Albums>> {
         CoroutineScope(Dispatchers.Default).launch {
             albumsDatabase.getCount(tag).apply {
                 Log.i(TAG,"Albums $this")
@@ -102,10 +104,7 @@ object Repository {
                 }
             }
         }
-    }
-
-    fun getAllAlbums(): LiveData<List<Albums>> {
-        return albumsDatabase.getAllData()
+        return albumsDatabase.getAlbumsByTag(tag)
     }
 
     private fun fetchAlbumsFromNetwork(tag: String) {
@@ -150,12 +149,11 @@ object Repository {
 
     /* ---- Fetch Top Artists ----- */
     private fun fetchTopArtistsFromNetwork(tag:String){
-        val topArtists = MutableLiveData<TopArtists>()
         val url = "$BASE_URL?method=tag.gettopartists&tag=$tag&api_key=$API_KEY&format=$FORMAT"
         val request = StringRequest(url, { it ->
             CoroutineScope(Dispatchers.IO).launch {
-                val res = gson.fromJson(it, TopArtists::class.java)
-                topArtists.value = res
+                val res = gson.fromJson(it, NetworkArtists::class.java)
+
             }
         }, {
             Log.e(TAG, it.localizedMessage!!)
