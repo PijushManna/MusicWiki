@@ -6,10 +6,15 @@ import androidx.lifecycle.LiveData
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.musicwiki.repo.local.albums.Albums
+import com.example.musicwiki.repo.local.albums.AlbumsDAO
+import com.example.musicwiki.repo.local.albums.AlbumsDatabase
 import com.example.musicwiki.repo.local.genre.Genre
 import com.example.musicwiki.repo.local.genre.GenreDAO
 import com.example.musicwiki.repo.local.genre.GenreDatabase
 import com.example.musicwiki.repo.network.genreinfo.TagInfo
+import com.example.musicwiki.repo.network.topalbums.NetworkAlbums
+import com.example.musicwiki.repo.network.topalbums.TopAlbums
 import com.example.musicwiki.repo.network.topgenre.TopTagInfo
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -22,14 +27,13 @@ object Repository {
     private const val API_KEY = "8bfe4bd8ae71bd4dda4b58cc138e1035"
     private const val FORMAT = "json"
     private lateinit var genreDatabase: GenreDAO
+    private lateinit var albumsDatabase: AlbumsDAO
     private lateinit var requestQueue: RequestQueue
     private val gson = GsonBuilder().create()
 
-    //Genre Variables
-    private var offset = 0
-
     fun init(context: Context) {
         genreDatabase = GenreDatabase.getInstance(context).genreDAO
+        albumsDatabase = AlbumsDatabase.getInstance(context).albumsDAO
         requestQueue = Volley.newRequestQueue(context)
         CoroutineScope(Dispatchers.Default).launch {
             genreDatabase.getCount().apply {
@@ -40,8 +44,9 @@ object Repository {
         }
     }
 
+    /* ---- Fetch Genre ---- */
     private fun fetchGenreFromNetwork() {
-        val url = "$BASE_URL?method=tag.getTopTags&api_key=$API_KEY&format=$FORMAT&offset=$offset"
+        val url = "$BASE_URL?method=tag.getTopTags&api_key=$API_KEY&format=$FORMAT"
         val request = StringRequest(url, { it ->
             CoroutineScope(Dispatchers.IO).launch {
                 val res = gson.fromJson(it, TopTagInfo::class.java)
@@ -61,10 +66,9 @@ object Repository {
             Log.e(TAG, it.localizedMessage!!)
         })
         requestQueue.add(request)
-        offset += 50
     }
 
-    fun fetchGenreInfo(item:Genre):LiveData<Genre>{
+    fun fetchGenreInfo(item: Genre): LiveData<Genre> {
         val url = "$BASE_URL?method=tag.getinfo&tag=${item.name}&api_key=$API_KEY&format=$FORMAT"
         val request = StringRequest(url, { it ->
             CoroutineScope(Dispatchers.IO).launch {
@@ -86,5 +90,57 @@ object Repository {
 
     fun getAllGenre(): LiveData<List<Genre>> {
         return genreDatabase.getAllData()
+    }
+
+    /* ----- Fetch Top Albums ----- */
+    fun checkAlbumsExistsForTheTag(tag: String) {
+        CoroutineScope(Dispatchers.Default).launch {
+            albumsDatabase.getCount(tag).apply {
+                Log.i(TAG,"Albums $this")
+                if (this == 0) {
+                    fetchAlbumsFromNetwork(tag)
+                }
+            }
+        }
+    }
+
+    private fun fetchAlbumsFromNetwork(tag: String) {
+        val url = "$BASE_URL?method=tag.gettopalbums&tag=$tag&api_key=$API_KEY&format=$FORMAT"
+        val request = StringRequest(url, { it ->
+            CoroutineScope(Dispatchers.IO).launch {
+                val res = gson.fromJson(it, TopAlbums::class.java)
+                var name: String?
+                var mbid: String?
+                var url: String?
+                var artist: String?
+                var image: String?
+                var ranking: String?
+                res.albums?.album?.forEach {
+                    name = it.name
+                    mbid = it.mbid
+                    url = it.url
+                    artist = it.artist?.name
+                    image = it.image?.get(0)?.text
+                    ranking = it.attr?.rank
+                    
+                    if (name != null){
+                        val album  = Albums(
+                            name = name,
+                            tag = tag,
+                            mbid = mbid,
+                            url = url,
+                            artist = artist,
+                            image = image,
+                            rank = ranking
+                        )
+                        albumsDatabase.insert(album)
+                    }
+                }
+                
+            }
+        }, {
+            Log.e(TAG, it.localizedMessage!!)
+        })
+        requestQueue.add(request)
     }
 }

@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.example.musicwiki.MainViewModel
 import com.example.musicwiki.adapters.AlbumsAdapter
 import com.example.musicwiki.databinding.FragmentAlbumTrackArtistBinding
 import com.example.musicwiki.models.Albums
@@ -15,6 +17,7 @@ class AlbumPagerFragment : Fragment() {
         FragmentAlbumTrackArtistBinding.inflate(layoutInflater)
     }
     private val adapter = AlbumsAdapter()
+    private val viewModel:MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,17 +28,8 @@ class AlbumPagerFragment : Fragment() {
         }
         adapter.submitList(
             mutableListOf(
-                Albums(1,"1","1"),
-                Albums(2,"1","1"),
-                Albums(3,"1","1"),
-                Albums(4,"1","1"),
-                Albums(1,"1","1"),
-                Albums(1,"1","1"),
-                Albums(1,"1","1"),
-                Albums(1,"1","1"),
             )
         )
-        adapter.notifyDataSetChanged()
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

@@ -1,10 +1,12 @@
-package com.example.musicwiki.ui.albums
+package com.example.musicwiki.ui.artists
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.example.musicwiki.MainViewModel
 import com.example.musicwiki.adapters.ArtistsAdapter
 import com.example.musicwiki.databinding.FragmentAlbumTrackArtistBinding
 
@@ -14,6 +16,7 @@ class ArtistPagerFragment : Fragment() {
         FragmentAlbumTrackArtistBinding.inflate(layoutInflater)
     }
     private val adapter = ArtistsAdapter()
+    private val viewModel:MainViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +38,7 @@ class ArtistPagerFragment : Fragment() {
         )
         adapter.notifyDataSetChanged()
         binding.lifecycleOwner = viewLifecycleOwner
+
         return binding.root
     }
 }

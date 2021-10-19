@@ -12,7 +12,7 @@ import com.example.musicwiki.adapters.GenrePagesAdapter
 import com.example.musicwiki.databinding.FragmentGenreBinding
 import com.example.musicwiki.models.GenreType
 import com.example.musicwiki.ui.albums.AlbumPagerFragment
-import com.example.musicwiki.ui.albums.ArtistPagerFragment
+import com.example.musicwiki.ui.artists.ArtistPagerFragment
 import com.example.musicwiki.ui.tracks.TracksPagerFragment
 
 class GenreFragment : Fragment() {

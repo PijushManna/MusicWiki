@@ -1,25 +1,24 @@
-package com.example.musicwiki.repo.local.genre
+package com.example.musicwiki.repo.local.albums
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Genre::class], version = 1, exportSchema = false)
-abstract class GenreDatabase : RoomDatabase() {
-    abstract val genreDAO: GenreDAO
-
+@Database(entities = [Albums::class], version = 2, exportSchema = false)
+abstract class AlbumsDatabase : RoomDatabase(){
+    abstract val albumsDAO: AlbumsDAO
     companion object {
         @Volatile
-        private var INSTANCE: GenreDatabase? = null
+        private var INSTANCE: AlbumsDatabase? = null
 
-        fun getInstance(context: Context): GenreDatabase {
+        fun getInstance(context: Context): AlbumsDatabase {
             synchronized(this) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
-                        GenreDatabase::class.java,
-                        "genre_database_history"
+                        AlbumsDatabase::class.java,
+                        "albums_database_history"
                     ).fallbackToDestructiveMigration()
                         .build()
                 }
