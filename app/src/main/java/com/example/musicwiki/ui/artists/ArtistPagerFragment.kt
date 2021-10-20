@@ -14,12 +14,13 @@ class ArtistPagerFragment : Fragment() {
     private val binding: FragmentAlbumTrackArtistBinding by lazy {
         FragmentAlbumTrackArtistBinding.inflate(layoutInflater)
     }
-    private val adapter = ArtistsAdapter()
+
     private val viewModel:MainViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val adapter = ArtistsAdapter(viewModel)
         binding.apply {
             lstItems.adapter = adapter
         }

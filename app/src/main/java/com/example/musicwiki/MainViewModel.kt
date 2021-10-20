@@ -23,6 +23,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     val changeDestination = MutableLiveData<Boolean>()
     var currentTag:String? = null
     var currentAlbum:Albums? = null
+    var currentArtist:String? = null
 
     init {
         Repository.init(application.applicationContext)

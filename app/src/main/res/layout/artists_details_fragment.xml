@@ -19,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/plants_bg"
+            android:contentDescription="TODO"
             android:scaleType="centerCrop"
             tools:src="@tools:sample/backgrounds/scenic" />
 
@@ -27,50 +28,52 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            tools:text="@tools:sample/cities" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/txt_play_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_margin="40dp"
             android:text="TextView"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:text="@tools:sample/us_zipcodes" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/lbl_play_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
             android:layout_marginBottom="18dp"
-            android:text="TextView"
+            android:text="@string/playcount"
             android:textColor="@color/white" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/txt_followers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="40dp"
-            android:text="Text"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:text="@tools:sample/us_zipcodes" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/lbl_followers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_marginRight="40dp"
             android:layout_marginBottom="18dp"
-            android:text="TextView"
-            android:textColor="@color/white" />
+            android:text="@string/followers"
+            android:textColor="@color/white"
+            tools:ignore="TextContrastCheck" />
 
     </FrameLayout>
 
