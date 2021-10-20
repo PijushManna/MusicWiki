@@ -11,6 +11,7 @@ import com.example.musicwiki.repo.local.albums.Albums
 import com.example.musicwiki.repo.local.artists.Artists
 import com.example.musicwiki.repo.local.genre.Genre
 import com.example.musicwiki.repo.local.tracks.Tracks
+import com.example.musicwiki.repo.network.albumsinfo.Tags
 import com.example.musicwiki.repo.network.topalbums.Album
 import com.example.musicwiki.repo.network.topalbums.TopAlbums
 import kotlinx.coroutines.launch
@@ -20,7 +21,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     val shortGenre:LiveData<List<Genre>>
     val allGenre:LiveData<List<Genre>>
     lateinit var selectedTag:LiveData<Genre>
-    lateinit var selectedAlbum:LiveData<Albums>
     lateinit var topAlbums: LiveData<List<Albums>>
     lateinit var topArtists: LiveData<List<Artists>>
     lateinit var topTracks: LiveData<List<Tracks>>
@@ -42,12 +42,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
                 topArtists = Repository.fetchArtists(item.name)
                 topTracks = Repository.fetchTracks(item.name)
             }
-        }
-    }
-
-    fun fetchAlbumInfo(album: Albums){
-        viewModelScope.launch {
-            selectedAlbum = Repository.fetchAlbumInfo(item = album)
         }
     }
 }

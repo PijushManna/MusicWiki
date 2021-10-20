@@ -3,6 +3,7 @@ package com.example.musicwiki.repo
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -19,11 +20,13 @@ import com.example.musicwiki.repo.local.tracks.Tracks
 import com.example.musicwiki.repo.local.tracks.TracksDAO
 import com.example.musicwiki.repo.local.tracks.TracksDatabase
 import com.example.musicwiki.repo.network.albumsinfo.AlbumsInfo
+import com.example.musicwiki.repo.network.albumsinfo.Tags
 import com.example.musicwiki.repo.network.genreinfo.TagInfo
 import com.example.musicwiki.repo.network.topalbums.TopAlbums
 import com.example.musicwiki.repo.network.topartists.NetworkArtists
 import com.example.musicwiki.repo.network.topgenre.TopTagInfo
 import com.example.musicwiki.repo.network.toptracks.NetworkTracks
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -56,6 +59,13 @@ object Repository {
         }
     }
 
+    fun addToRequestQueue(request: StringRequest){
+        requestQueue.add(request)
+    }
+
+    fun getFormatter(): Gson {
+        return gson
+    }
     /* ---- Fetch Genre ---- */
     private fun fetchGenreFromNetwork() {
         val url = "$BASE_URL?method=tag.getTopTags&api_key=$API_KEY&format=$FORMAT"
@@ -104,31 +114,10 @@ object Repository {
         return genreDatabase.getAllData()
     }
 
-    /* ----- Fetch Top Albums ----- */
-    fun fetchAlbumInfo(item:Albums): LiveData<Albums> {
-        val url = "$BASE_URL?method=album.getinfo&api_key=$API_KEY&artist=${item.artist}&album=${item.name}&format=$FORMAT"
-        val request = StringRequest(url, { it ->
-            CoroutineScope(Dispatchers.IO).launch {
-                val res = gson.fromJson(it, AlbumsInfo::class.java)
-                res.album.apply {
-                    item.artist = artist
-                    item.mbid = mbid
-                    item.playCount = playcount
-                    item.image = image?.get(3)?.text
-                    item.listeners = listeners
-                    item.published = wiki.published
-                    item.summery = wiki.summary
-                    item.content = wiki.content
-                }
-                albumsDatabase.update(item)
-            }
-        }, {
-            Log.e(TAG, it.localizedMessage!!)
-        })
-        requestQueue.add(request)
-        return albumsDatabase.getAlbumById(item.id)
+    /* ----- Fetch Albums ----- */
+    fun getAlbumInfoUrl(item:Albums):String{
+        return "$BASE_URL?method=album.getinfo&api_key=$API_KEY&artist=${item.artist}&album=${item.name}&format=$FORMAT"
     }
-
     fun fetchAlbums(tag: String): LiveData<List<Albums>> {
         CoroutineScope(Dispatchers.Default).launch {
             albumsDatabase.getCount(tag).apply {
@@ -139,7 +128,6 @@ object Repository {
         }
         return albumsDatabase.getAlbumsByTag(tag)
     }
-
     private fun fetchAlbumsFromNetwork(tag: String) {
         val url = "$BASE_URL?method=tag.gettopalbums&tag=$tag&api_key=$API_KEY&format=$FORMAT"
         val request = StringRequest(url, { it ->

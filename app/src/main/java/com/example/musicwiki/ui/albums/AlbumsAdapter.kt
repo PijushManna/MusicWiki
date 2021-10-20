@@ -19,8 +19,8 @@ class AlbumsAdapter(private val mainViewModel: MainViewModel) : ListAdapter<Albu
                 binding.txtItemTitle.text = item.name
                 Glide.with(binding.root.context).load(item.image).into(binding.imgItemLogo)
                 binding.root.setOnClickListener {
-                    mainViewModel.fetchAlbumInfo(item)
-                    it.findNavController().navigate(R.id.albumDetailsFragment)
+                    mainViewModel.currentAlbum = item
+                    it.findNavController().navigate(R.id.action_genreFragment_to_albumDetailsFragment)
                 }
             }
     }

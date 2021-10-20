@@ -1,7 +1,9 @@
 package com.example.musicwiki.ui
 
 import android.widget.GridView
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import com.example.musicwiki.ui.genrehome.WelcomeGenreAdapter
 import com.example.musicwiki.repo.local.genre.Genre
 
@@ -13,5 +15,12 @@ fun GridView.setGrid(item: List<Genre>?){
             add(it.name)
         }
         notifyDataSetChanged()
+    }
+}
+
+@BindingAdapter("set_image")
+fun ImageView.setImage(item: String?){
+    item?.let{
+        Glide.with(this.context).load(it).into(this)
     }
 }
