@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.musicwiki.MainViewModel
-import com.example.musicwiki.adapters.ArtistsAdapter
 import com.example.musicwiki.databinding.FragmentAlbumTrackArtistBinding
 
 class ArtistPagerFragment : Fragment() {

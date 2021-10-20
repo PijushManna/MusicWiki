@@ -1,12 +1,11 @@
-package com.example.musicwiki.adapters
+package com.example.musicwiki.ui.genrehome
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.example.musicwiki.models.GenreType
 
-class GenrePagesAdapter(fragmentManager: FragmentManager,private val fragments:ArrayList<Pair<Fragment, GenreType>>) : FragmentStatePagerAdapter(fragmentManager) {
+
+class GenrePagesAdapter(fragmentManager: FragmentManager,private val fragments:ArrayList<Pair<Fragment, String>>) : FragmentStatePagerAdapter(fragmentManager) {
     override fun getCount(): Int {
        return fragments.size
     }
@@ -16,6 +15,6 @@ class GenrePagesAdapter(fragmentManager: FragmentManager,private val fragments:A
     }
 
     override fun getPageTitle(position: Int): CharSequence {
-        return fragments[position].second.toString()
+        return fragments[position].second
     }
 }

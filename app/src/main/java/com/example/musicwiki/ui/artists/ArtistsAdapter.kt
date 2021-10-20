@@ -1,4 +1,4 @@
-package com.example.musicwiki.adapters
+package com.example.musicwiki.ui.artists
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,9 @@ import com.example.musicwiki.databinding.ListItemAlbumTracksArtistBinding
 import com.example.musicwiki.repo.local.artists.Artists
 
 
-class ArtistsAdapter : ListAdapter<Artists, ArtistsAdapter.ViewHolder>(AlbumArtistsTracksDiffUtilCallback()) {
+class ArtistsAdapter : ListAdapter<Artists, ArtistsAdapter.ViewHolder>(
+    AlbumArtistsTracksDiffUtilCallback()
+) {
     class ViewHolder(private val binding: ListItemAlbumTracksArtistBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Artists){
