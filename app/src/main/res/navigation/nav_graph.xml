@@ -25,8 +25,7 @@
         <action
             android:id="@+id/action_genreFragment_to_albumDetailsFragment"
             app:destination="@id/albumDetailsFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/welcomeFragment" />
+            app:launchSingleTop="true" />
         <action
             android:id="@+id/action_genreFragment_to_artistsDetailsFragment"
             app:destination="@id/artistsDetailsFragment" />

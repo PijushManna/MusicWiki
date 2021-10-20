@@ -211,6 +211,12 @@ object Repository {
     fun getArtistInfoUrl(item:String):String{
         return "$BASE_URL?method=artist.getinfo&api_key=$API_KEY&artist=$item&format=$FORMAT"
     }
+    fun getArtistsTopTracksUrl(item: String):String{
+        return "$BASE_URL?method=artist.gettoptracks&api_key=$API_KEY&artist=$item&format=$FORMAT"
+    }
+    fun getArtistsTopAlbums(item: String):String{
+        return "$BASE_URL?method=artist.gettopalbums&api_key=$API_KEY&artist=$item&format=$FORMAT"
+    }
     fun fetchArtists(tag: String): LiveData<List<Artists>> {
         CoroutineScope(Dispatchers.Default).launch {
             artistsDatabase.getCount(tag).apply {

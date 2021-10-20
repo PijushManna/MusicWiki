@@ -1,6 +1,7 @@
 package com.example.musicwiki.ui.artists
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,8 +23,11 @@ class ArtistsDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mainViewModel.currentArtist?.let { viewModel.fetchArtistsInfo(it) }
+        val adapter = ArtistsTagsAdapter(mainViewModel)
+        binding.listAlbumTags.adapter = adapter
         viewModel.artistInfo.observe(viewLifecycleOwner,{
-            Toast.makeText(context,"$it",Toast.LENGTH_SHORT).show()
+            binding.model = it
+            adapter.submitList(it.artist.tags.tag)
         })
         return binding.root
     }
