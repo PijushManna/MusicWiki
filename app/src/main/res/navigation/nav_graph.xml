@@ -14,6 +14,7 @@
             app:destination="@id/genreFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
@@ -24,11 +25,17 @@
         <action
             android:id="@+id/action_genreFragment_to_albumDetailsFragment"
             app:destination="@id/albumDetailsFragment"
+            app:launchSingleTop="true"
             app:popUpTo="@id/welcomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/albumDetailsFragment"
         android:name="com.example.musicwiki.ui.albums.AlbumDetailsFragment"
         android:label="album_details_fragment"
-        tools:layout="@layout/album_details_fragment" />
+        tools:layout="@layout/album_details_fragment" >
+        <action
+            android:id="@+id/action_albumDetailsFragment_to_genreFragment"
+            app:destination="@id/genreFragment"
+            app:launchSingleTop="true" />
+    </fragment>
 </navigation>

@@ -3,7 +3,6 @@ package com.example.musicwiki.repo
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -19,8 +18,6 @@ import com.example.musicwiki.repo.local.genre.GenreDatabase
 import com.example.musicwiki.repo.local.tracks.Tracks
 import com.example.musicwiki.repo.local.tracks.TracksDAO
 import com.example.musicwiki.repo.local.tracks.TracksDatabase
-import com.example.musicwiki.repo.network.albumsinfo.AlbumsInfo
-import com.example.musicwiki.repo.network.albumsinfo.Tags
 import com.example.musicwiki.repo.network.genreinfo.TagInfo
 import com.example.musicwiki.repo.network.topalbums.TopAlbums
 import com.example.musicwiki.repo.network.topartists.NetworkArtists
@@ -53,7 +50,7 @@ object Repository {
         CoroutineScope(Dispatchers.Default).launch {
             genreDatabase.getCount().apply {
                 if (this == 0) {
-                    fetchGenreFromNetwork()
+                    fetchTopGenreFromNetwork()
                 }
             }
         }
@@ -66,8 +63,10 @@ object Repository {
     fun getFormatter(): Gson {
         return gson
     }
+
+
     /* ---- Fetch Genre ---- */
-    private fun fetchGenreFromNetwork() {
+    private fun fetchTopGenreFromNetwork() {
         val url = "$BASE_URL?method=tag.getTopTags&api_key=$API_KEY&format=$FORMAT"
         val request = StringRequest(url, { it ->
             CoroutineScope(Dispatchers.IO).launch {
@@ -85,25 +84,63 @@ object Repository {
                 }
             }
         }, {
-            Log.e(TAG, it.localizedMessage!!)
+           
         })
         requestQueue.add(request)
     }
 
-    fun fetchGenreInfo(item: Genre): LiveData<Genre> {
-        val url = "$BASE_URL?method=tag.getinfo&tag=${item.name}&api_key=$API_KEY&format=$FORMAT"
+    fun fetchGenre(tag:String): LiveData<Genre> {
+        CoroutineScope(Dispatchers.Default).launch {
+            genreDatabase.getIdByName(tag).apply {
+                if (this != null){
+                    updateGenreFromNetwork(tag,this)
+                }else{
+                    fetchGenreFromNetwork(tag)
+                }
+            }
+        }
+        return genreDatabase.getItemByName(tag)
+    }
+    private fun updateGenreFromNetwork(item: String ,id: Long){
+        val url = "$BASE_URL?method=tag.getinfo&tag=$item&api_key=$API_KEY&format=$FORMAT"
         val request = StringRequest(url, { it ->
             CoroutineScope(Dispatchers.IO).launch {
                 val res = gson.fromJson(it, TagInfo::class.java)
-                item.content = res.tag?.wiki?.content
-                item.summery = res.tag?.wiki?.summary
-                genreDatabase.update(item)
+                res.tag?.let {
+                    val tmp = Genre(
+                        id = id,
+                        name = it.name,
+                        count = it.total,
+                        reach = it.reach,
+                        summery = it.wiki?.summary,
+                        content = it.wiki?.content
+                    )
+                    genreDatabase.update(tmp)
+                }
             }
         }, {
-            Log.e(TAG, it.localizedMessage!!)
         })
         requestQueue.add(request)
-        return genreDatabase.getItemById(item.id)
+    }
+    private fun fetchGenreFromNetwork(item: String){
+        val url = "$BASE_URL?method=tag.getinfo&tag=$item&api_key=$API_KEY&format=$FORMAT"
+        val request = StringRequest(url, { it ->
+            CoroutineScope(Dispatchers.IO).launch {
+                val res = gson.fromJson(it, TagInfo::class.java)
+                res.tag?.let {
+                   val tmp = Genre(name = it.name,
+                    count = it.total,
+                    reach = it.reach,
+                    summery = it.wiki?.summary,
+                    content = it.wiki?.content
+                    )
+                    genreDatabase.insert(tmp)
+                }
+            }
+        }, {
+          
+        })
+        requestQueue.add(request)
     }
 
     fun getShortGenre(): LiveData<List<Genre>> {
@@ -113,6 +150,8 @@ object Repository {
     fun getAllGenre(): LiveData<List<Genre>> {
         return genreDatabase.getAllData()
     }
+
+
 
     /* ----- Fetch Albums ----- */
     fun getAlbumInfoUrl(item:Albums):String{
@@ -163,7 +202,7 @@ object Repository {
 
             }
         }, {
-            Log.e(TAG, it.localizedMessage!!)
+           
         })
         requestQueue.add(request)
     }
@@ -212,7 +251,7 @@ object Repository {
 
             }
         }, {
-            Log.e(TAG, it.localizedMessage!!)
+       
         })
         requestQueue.add(request)
     }
@@ -268,7 +307,7 @@ object Repository {
                 }
             }
         }, {
-            Log.e(TAG, it.localizedMessage!!)
+           
         })
         requestQueue.add(request)
     }

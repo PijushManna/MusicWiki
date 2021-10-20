@@ -19,20 +19,23 @@ class AlbumDetailsFragment : Fragment() {
     private val viewModel:AlbumsDetailsViewModel by lazy {
         AlbumsDetailsViewModel(application = requireActivity().application)
     }
-    private lateinit var adapter: GenreAdapter
+    private lateinit var adapter: AlbumsTagsAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = AlbumDetailsFragmentBinding.inflate(inflater,container,false)
         binding.lifecycleOwner = viewLifecycleOwner
+        adapter = AlbumsTagsAdapter(mainViewModel)
+        binding.listAlbumTags.adapter = adapter
         viewModel.albumInfo.observe(viewLifecycleOwner,{
             it?.let {
                 binding.apply {
                     txtArtistInfo.text = it.artist
                     txtAlbumTitle.text = it.name
-                    txtAlbumDescription.text = it.wiki.content
+                    txtAlbumDescription.text = it.wiki?.content ?: "Not Found"
                     imgCover.setImage(it.image[3].text)
+                    adapter.submitList(it.tags.tag)
                 }
             }
         })

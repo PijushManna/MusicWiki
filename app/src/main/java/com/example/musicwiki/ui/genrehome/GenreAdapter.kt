@@ -21,7 +21,7 @@ class GenreAdapter(context: Context, private val viewModel: MainViewModel, items
         binding.btnTag.setOnClickListener {
             viewModel.changeDestination.value = true
             viewModel.currentTag = getItem(position)
-            viewModel.allGenre.value?.get(position)?.let { it1 -> viewModel.fetchInfo(it1) }
+            viewModel.fetchInfo(getItem(position))
         }
         return binding.root
     }

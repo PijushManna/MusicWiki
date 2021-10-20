@@ -10,7 +10,7 @@ data class Genre  (
     val id:Long = 0L,
 
     @ColumnInfo(name = "name")
-    var name: String,
+    var name: String?,
 
     @ColumnInfo(name = "count")
     var count: Int? = null,

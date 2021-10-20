@@ -68,7 +68,7 @@
                 tools:ignore="SpeakableTextPresentCheck" />
         </FrameLayout>
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_album_tags"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -77,9 +77,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout5"
-            tools:listitem="@layout/list_item_genre">
+            tools:listitem="@layout/list_item_genre"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
-        </ListView>
+        </androidx.recyclerview.widget.RecyclerView>
 
         <ScrollView
             android:layout_width="match_parent"

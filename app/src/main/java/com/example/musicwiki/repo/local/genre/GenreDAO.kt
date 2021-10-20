@@ -25,4 +25,10 @@ interface GenreDAO {
 
     @Query("SELECT * from genre WHERE id =:key")
     fun getItemById(key:Long):LiveData<Genre>
+
+    @Query("SELECT * from genre WHERE name =:key")
+    fun getItemByName(key:String):LiveData<Genre>
+
+    @Query("SELECT id FROM genre WHERE name =:q")
+    fun getIdByName(q:String):Long?
 }
