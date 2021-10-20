@@ -15,8 +15,8 @@ class AlbumsAdapter : ListAdapter<Albums, AlbumsAdapter.ViewHolder>(AlbumsDiffUt
     class ViewHolder(private val binding: ListItemAlbumTracksArtistBinding) :
         RecyclerView.ViewHolder(binding.root) {
             fun bind(item:Albums){
-                binding.textView3.text = item.name
-                Glide.with(binding.root.context).load(item.image).into(binding.imageView)
+                binding.txtItemTitle.text = item.name
+                Glide.with(binding.root.context).load(item.image).into(binding.imgItemLogo)
                 binding.root.setOnClickListener {
                     it.findNavController().navigate(R.id.albumDetailsFragment)
                 }

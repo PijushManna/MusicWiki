@@ -104,6 +104,9 @@ object Repository {
     }
 
     /* ----- Fetch Top Albums ----- */
+    fun fetchAlbumById(item:Albums): LiveData<Albums> {
+        return albumsDatabase.getAlbumById(item.id)
+    }
     fun fetchAlbums(tag: String): LiveData<List<Albums>> {
         CoroutineScope(Dispatchers.Default).launch {
             albumsDatabase.getCount(tag).apply {

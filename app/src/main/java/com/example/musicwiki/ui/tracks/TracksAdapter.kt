@@ -15,10 +15,8 @@ class TracksAdapter : ListAdapter<Tracks, TracksAdapter.ViewHolder>(
     class ViewHolder(private val binding: ListItemAlbumTracksArtistBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Tracks){
-            binding.textView3.text = item.name
-            if (item.image.equals("https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png"))
-                item.image = "https://picsum.photos/200/300"
-            Glide.with(binding.root.context).load(item.image).into(binding.imageView)
+            binding.txtItemTitle.text = item.name
+            Glide.with(binding.root.context).load(item.image).into(binding.imgItemLogo)
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

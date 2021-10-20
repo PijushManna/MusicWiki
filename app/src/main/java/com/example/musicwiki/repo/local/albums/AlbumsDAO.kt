@@ -18,4 +18,7 @@ interface AlbumsDAO {
 
     @Query("SELECT * FROM albums WHERE tag =:tagName")
     fun getAlbumsByTag(tagName: String):LiveData<List<Albums>>
+
+    @Query("SELECT * FROM albums WHERE id =:key")
+    fun getAlbumById(key: Long):LiveData<Albums>
 }

@@ -16,8 +16,8 @@ class ArtistsAdapter : ListAdapter<Artists, ArtistsAdapter.ViewHolder>(
     class ViewHolder(private val binding: ListItemAlbumTracksArtistBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Artists){
-           binding.textView3.text  = item.name
-            Glide.with(binding.root.context).load(item.image).into( binding.imageView)
+           binding.txtItemTitle.text  = item.name
+            Glide.with(binding.root.context).load(item.image).into( binding.imgItemLogo)
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
