@@ -27,6 +27,7 @@ class ArtistsAdapter(private val viewModel: MainViewModel) : ListAdapter<Artists
             }
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ListItemAlbumTracksArtistBinding.inflate(LayoutInflater.from(parent.context))
         return ViewHolder(binding,viewModel)

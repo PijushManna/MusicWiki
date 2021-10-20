@@ -4,127 +4,157 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="model"
             type="com.example.musicwiki.repo.network.artistinfo.ArtistInfo" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout4"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/frameLayout5"
+        <LinearLayout
+            android:id="@+id/frameLayout4"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/img_cover"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/frameLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
+
+                <ImageView
+                    android:id="@+id/img_cover"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/plants_bg"
+                    android:scaleType="centerCrop"
+                    app:set_image="@{model.artist.image[3].text}"
+                    tools:src="@tools:sample/backgrounds/scenic" />
+
+                <TextView
+                    android:id="@+id/txt_album_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@{model.artist.name}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="@color/white"
+                    tools:text="@tools:sample/cities" />
+
+                <TextView
+                    android:id="@+id/txt_play_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="40dp"
+                    android:text="@{model.artist.stats.playcount}"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:text="@tools:sample/us_zipcodes" />
+
+                <TextView
+                    android:id="@+id/lbl_play_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginBottom="18dp"
+                    android:text="@string/playcount"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/txt_followers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_margin="40dp"
+                    android:text="@{model.artist.stats.listeners}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:text="@tools:sample/us_zipcodes" />
+
+                <TextView
+                    android:id="@+id/lbl_followers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginBottom="18dp"
+                    android:text="@string/followers"
+                    android:textColor="@color/white"
+                    tools:ignore="TextContrastCheck" />
+
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_album_tags"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/plants_bg"
-                android:scaleType="centerCrop"
-                tools:src="@tools:sample/backgrounds/scenic"
-                app:set_image="@{model.artist.image[3].text}"
-                />
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_item_genre" />
 
             <TextView
-                android:id="@+id/txt_album_title"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_album_description"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="@color/white"
-                tools:text="@tools:sample/cities"
-                android:text="@{model.artist.name}"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{model.artist.bio.summary}" />
 
             <TextView
-                android:id="@+id/txt_play_count"
-                android:layout_width="wrap_content"
+                android:id="@+id/lbl_top_tracks"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_margin="40dp"
-                android:text="@{model.artist.stats.playcount}"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                tools:text="@tools:sample/us_zipcodes" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:text="Top Tracks"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcr_artist_top_tracks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_item_album_tracks_artist" />
 
             <TextView
-                android:id="@+id/lbl_play_count"
-                android:layout_width="wrap_content"
+                android:id="@+id/lbl_top_albums"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="40dp"
-                android:layout_marginBottom="18dp"
-                android:text="@string/playcount"
-                android:textColor="@color/white" />
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:text="Top Albums"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/txt_followers"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcr_artist_top_albums"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:layout_margin="40dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                tools:text="@tools:sample/us_zipcodes"
-                android:text="@{model.artist.stats.listeners}"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/list_item_album_tracks_artist" />
 
-            <TextView
-                android:id="@+id/lbl_followers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:layout_marginRight="40dp"
-                android:layout_marginBottom="18dp"
-                android:text="@string/followers"
-                android:textColor="@color/white"
-                tools:ignore="TextContrastCheck"
-                />
-
-        </FrameLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_album_tags"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frameLayout5"
-            tools:listitem="@layout/list_item_genre"
-            />
-
-        <TextView
-            android:id="@+id/txt_album_description"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="@{model.artist.bio.summary}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list_album_tags"
-            tools:text="@tools:sample/lorem/random" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_album_description"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"
-            tools:listitem="@layout/list_item_album_tracks_artist"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
 </layout>
