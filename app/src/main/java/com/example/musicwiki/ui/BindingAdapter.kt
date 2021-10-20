@@ -4,12 +4,12 @@ import android.widget.GridView
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.example.musicwiki.ui.genrehome.WelcomeGenreAdapter
+import com.example.musicwiki.ui.genrehome.GenreAdapter
 import com.example.musicwiki.repo.local.genre.Genre
 
 @BindingAdapter("list")
 fun GridView.setGrid(item: List<Genre>?){
-    (adapter as WelcomeGenreAdapter).apply {
+    (adapter as GenreAdapter).apply {
         clear()
         item?.forEach { it ->
             add(it.name)

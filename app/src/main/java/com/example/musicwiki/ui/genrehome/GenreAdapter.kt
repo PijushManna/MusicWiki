@@ -12,7 +12,7 @@ import com.example.musicwiki.MainViewModel
 import com.example.musicwiki.R
 import com.example.musicwiki.databinding.ListItemGenreBinding
 
-class WelcomeGenreAdapter(context: Context,private val viewModel: MainViewModel, items: ArrayList<String>) :
+class GenreAdapter(context: Context, private val viewModel: MainViewModel, items: ArrayList<String>) :
     ArrayAdapter<String>(context, 0, items) {
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

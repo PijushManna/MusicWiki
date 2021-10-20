@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.musicwiki.MainViewModel
 import com.example.musicwiki.databinding.AlbumDetailsFragmentBinding
+import com.example.musicwiki.ui.genrehome.GenreAdapter
 import com.example.musicwiki.ui.setImage
 
 class AlbumDetailsFragment : Fragment() {
@@ -18,6 +19,7 @@ class AlbumDetailsFragment : Fragment() {
     private val viewModel:AlbumsDetailsViewModel by lazy {
         AlbumsDetailsViewModel(application = requireActivity().application)
     }
+    private lateinit var adapter: GenreAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

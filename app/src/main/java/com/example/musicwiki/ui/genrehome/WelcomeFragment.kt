@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.musicwiki.MainViewModel
@@ -31,10 +29,10 @@ class WelcomeFragment : Fragment() {
         //Setup Views
         binding.apply {
             model = viewModel
-            lstGenreShort.adapter = WelcomeGenreAdapter(
+            lstGenreShort.adapter = GenreAdapter(
                 requireContext(),viewModel , arrayListOf()
             )
-            lstGenreLong.adapter = WelcomeGenreAdapter(
+            lstGenreLong.adapter = GenreAdapter(
                 requireContext(),viewModel, arrayListOf()
             )
             btnToggleGenre.setOnCheckedChangeListener { _, b ->
