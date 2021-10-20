@@ -20,11 +20,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
     val shortGenre:LiveData<List<Genre>>
     val allGenre:LiveData<List<Genre>>
     lateinit var selectedTag:LiveData<Genre>
+    lateinit var selectedAlbum:LiveData<Albums>
     lateinit var topAlbums: LiveData<List<Albums>>
     lateinit var topArtists: LiveData<List<Artists>>
     lateinit var topTracks: LiveData<List<Tracks>>
     val changeDestination = MutableLiveData<Boolean>()
     var currentTag:String? = null
+    var currentAlbum:Albums? = null
 
     init {
         Repository.init(application.applicationContext)
@@ -43,5 +45,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application){
         }
     }
 
-
+    fun fetchAlbumInfo(album: Albums){
+        viewModelScope.launch {
+            selectedAlbum = Repository.fetchAlbumInfo(item = album)
+        }
+    }
 }

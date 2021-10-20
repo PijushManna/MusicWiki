@@ -7,24 +7,26 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.musicwiki.MainViewModel
 import com.example.musicwiki.R
 import com.example.musicwiki.databinding.ListItemAlbumTracksArtistBinding
 import com.example.musicwiki.repo.local.albums.Albums
 
-class AlbumsAdapter : ListAdapter<Albums, AlbumsAdapter.ViewHolder>(AlbumsDiffUtilCallback()) {
-    class ViewHolder(private val binding: ListItemAlbumTracksArtistBinding) :
+class AlbumsAdapter(private val mainViewModel: MainViewModel) : ListAdapter<Albums, AlbumsAdapter.ViewHolder>(AlbumsDiffUtilCallback()) {
+    class ViewHolder(private val binding: ListItemAlbumTracksArtistBinding,private val mainViewModel: MainViewModel) :
         RecyclerView.ViewHolder(binding.root) {
             fun bind(item:Albums){
                 binding.txtItemTitle.text = item.name
                 Glide.with(binding.root.context).load(item.image).into(binding.imgItemLogo)
                 binding.root.setOnClickListener {
+                    mainViewModel.fetchAlbumInfo(item)
                     it.findNavController().navigate(R.id.albumDetailsFragment)
                 }
             }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ListItemAlbumTracksArtistBinding.inflate(LayoutInflater.from(parent.context))
-        return ViewHolder(binding)
+        return ViewHolder(binding,mainViewModel)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
