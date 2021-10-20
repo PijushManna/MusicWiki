@@ -18,6 +18,7 @@ import com.example.musicwiki.repo.local.genre.GenreDatabase
 import com.example.musicwiki.repo.local.tracks.Tracks
 import com.example.musicwiki.repo.local.tracks.TracksDAO
 import com.example.musicwiki.repo.local.tracks.TracksDatabase
+import com.example.musicwiki.repo.network.albumsinfo.AlbumsInfo
 import com.example.musicwiki.repo.network.genreinfo.TagInfo
 import com.example.musicwiki.repo.network.topalbums.TopAlbums
 import com.example.musicwiki.repo.network.topartists.NetworkArtists
@@ -104,9 +105,30 @@ object Repository {
     }
 
     /* ----- Fetch Top Albums ----- */
-    fun fetchAlbumById(item:Albums): LiveData<Albums> {
+    fun fetchAlbumInfo(item:Albums): LiveData<Albums> {
+        val url = "$BASE_URL?method=album.getinfo&api_key=$API_KEY&artist=${item.artist}&album=${item.name}&format=$FORMAT"
+        val request = StringRequest(url, { it ->
+            CoroutineScope(Dispatchers.IO).launch {
+                val res = gson.fromJson(it, AlbumsInfo::class.java)
+                res.album.apply {
+                    item.artist = artist
+                    item.mbid = mbid
+                    item.playCount = playcount
+                    item.image = image?.get(3)?.text
+                    item.listeners = listeners
+                    item.published = wiki.published
+                    item.summery = wiki.summary
+                    item.content = wiki.content
+                }
+                albumsDatabase.update(item)
+            }
+        }, {
+            Log.e(TAG, it.localizedMessage!!)
+        })
+        requestQueue.add(request)
         return albumsDatabase.getAlbumById(item.id)
     }
+
     fun fetchAlbums(tag: String): LiveData<List<Albums>> {
         CoroutineScope(Dispatchers.Default).launch {
             albumsDatabase.getCount(tag).apply {

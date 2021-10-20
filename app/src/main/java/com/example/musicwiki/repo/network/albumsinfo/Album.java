@@ -1,6 +1,6 @@
 
 package com.example.musicwiki.repo.network.albumsinfo;
-import com.example.musicwiki.repo.network.genreinfo.Wiki;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -37,7 +37,7 @@ public class Album {
     private String listeners;
     @SerializedName("wiki")
     @Expose
-    private com.example.musicwiki.repo.network.genreinfo.Wiki wiki;
+    private Wiki wiki;
 
     public String getArtist() {
         return artist;
@@ -111,7 +111,7 @@ public class Album {
         this.listeners = listeners;
     }
 
-    public com.example.musicwiki.repo.network.genreinfo.Wiki getWiki() {
+    public Wiki getWiki() {
         return wiki;
     }
 

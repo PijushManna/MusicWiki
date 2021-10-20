@@ -29,4 +29,19 @@ data class Albums(
 
     @ColumnInfo(name = "rank")
     var rank: String? = null,
+
+    @ColumnInfo(name = "play_count")
+    var playCount:String? = null,
+
+    @ColumnInfo(name = "listeners")
+    var listeners:String? = null,
+
+    @ColumnInfo(name = "published")
+    var published:String? = null,
+
+    @ColumnInfo(name = "summery")
+    var summery:String? = null,
+
+    @ColumnInfo(name = "content")
+    var content:String? = null,
 )
