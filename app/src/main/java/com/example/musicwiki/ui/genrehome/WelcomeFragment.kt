@@ -45,9 +45,6 @@ class WelcomeFragment : Fragment() {
                     lstGenreLong.visibility = View.GONE
                 }
             }
-            btnUp.setOnClickListener{
-                findNavController().navigateUp()
-            }
         }
 
         //Added Observers

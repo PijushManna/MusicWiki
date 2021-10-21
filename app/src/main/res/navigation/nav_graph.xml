@@ -25,10 +25,18 @@
         <action
             android:id="@+id/action_genreFragment_to_albumDetailsFragment"
             app:destination="@id/albumDetailsFragment"
-            app:launchSingleTop="true" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_genreFragment_to_artistsDetailsFragment"
-            app:destination="@id/artistsDetailsFragment" />
+            app:destination="@id/artistsDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/albumDetailsFragment"
