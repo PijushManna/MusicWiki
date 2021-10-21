@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.musicwiki.MainActivity
 import com.example.musicwiki.MainViewModel
 import com.example.musicwiki.R
 import com.example.musicwiki.databinding.FragmentWelcomeBinding

@@ -24,9 +24,8 @@
                 android:id="@+id/img_cover"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/plants_bg"
-                android:scaleType="centerCrop"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                android:background="@drawable/music_wiki_bg"
+                android:scaleType="centerCrop" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -51,6 +50,7 @@
                     android:layout_gravity="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                     android:textColor="@color/white"
+                    android:textSize="24sp"
                     tools:text="@tools:sample/full_names" />
             </LinearLayout>
 

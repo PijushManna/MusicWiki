@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
@@ -12,8 +13,8 @@
             android:layout_height="200dp"
             android:layout_margin="1dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/plants_bg" />
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/music_wiki_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,14 +31,16 @@
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="@tools:sample/cities" />
 
             <TextView
                 android:id="@+id/txt_artist_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                tools:text="@tools:sample/full_names" />
         </LinearLayout>
 
     </FrameLayout>

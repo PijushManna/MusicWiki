@@ -1,8 +1,13 @@
 package com.example.musicwiki
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.musicwiki.repo.Repository
+import android.view.animation.TranslateAnimation
+
+
+
 
 
 /*
@@ -18,5 +23,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Repository.init(applicationContext)
+    }
+
+    companion object {
+        fun slideUp(view: View) {
+            val animate = TranslateAnimation(
+                0F,  // fromXDelta
+                0F,  // toXDelta
+                view.height.toFloat(),  // fromYDelta
+                0F
+            ) // toYDelta
+            animate.duration = 500
+            animate.fillAfter = true
+            view.startAnimation(animate)
+        }
+
+        // slide the view from its current position to below itself
+        fun slideDown(view1: View) {
+            val animate = TranslateAnimation(
+                0F,  // fromXDelta
+                0F,  // toXDelta
+                0F,  // fromYDelta
+                view1.height.toFloat()
+            ) // toYDelta
+            animate.duration = 500
+            animate.fillAfter = true
+            view1.startAnimation(animate)
+        }
     }
 }

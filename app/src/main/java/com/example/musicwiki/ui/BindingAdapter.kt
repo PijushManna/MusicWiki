@@ -5,6 +5,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.musicwiki.R
 import com.example.musicwiki.ui.genrehome.GenreAdapter
 import com.example.musicwiki.repo.local.genre.Genre
 import com.example.musicwiki.repo.network.artistinfo.Tag
@@ -24,6 +25,9 @@ fun GridView.setGrid(item: List<Genre>?){
 @BindingAdapter("set_image")
 fun ImageView.setImage(item: String?){
     item?.let{
-        Glide.with(this.context).load(it).into(this)
+        Glide.with(this.context)
+            .load(it)
+            .placeholder(R.drawable.loading)
+            .into(this)
     }
 }

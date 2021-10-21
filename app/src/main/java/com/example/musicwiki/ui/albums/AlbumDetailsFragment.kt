@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.musicwiki.MainViewModel
 import com.example.musicwiki.databinding.AlbumDetailsFragmentBinding
 import com.example.musicwiki.ui.genrehome.GenreAdapter
@@ -36,6 +37,9 @@ class AlbumDetailsFragment : Fragment() {
                     txtAlbumDescription.text = it.wiki?.content ?: "Not Found"
                     imgCover.setImage(it.image[3].text)
                     adapter.submitList(it.tags.tag)
+                    imgBack.setOnClickListener {
+                        findNavController().navigateUp()
+                    }
                 }
             }
         })
