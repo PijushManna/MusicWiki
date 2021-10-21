@@ -11,6 +11,7 @@ import com.example.musicwiki.MainViewModel
 import com.example.musicwiki.R
 import com.example.musicwiki.databinding.ListItemAlbumTracksArtistBinding
 import com.example.musicwiki.repo.local.artists.Artists
+import com.example.musicwiki.ui.setImage
 
 
 class ArtistsAdapter(private val viewModel: MainViewModel) : ListAdapter<Artists, ArtistsAdapter.ViewHolder>(
@@ -20,7 +21,7 @@ class ArtistsAdapter(private val viewModel: MainViewModel) : ListAdapter<Artists
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Artists){
            binding.txtItemTitle.text  = item.name
-            Glide.with(binding.root.context).load(item.image).into( binding.imgItemLogo)
+            binding.imgItemLogo.setImage(item.image)
             viewModel.currentArtist = item.name
             binding.root.setOnClickListener {
                 it.findNavController().navigate(R.id.action_genreFragment_to_artistsDetailsFragment)

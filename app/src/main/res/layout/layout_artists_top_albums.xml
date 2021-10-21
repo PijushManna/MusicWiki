@@ -10,10 +10,10 @@
         <ImageView
             android:id="@+id/img_item_logo"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerInside"
+            android:scaleType="centerCrop"
             app:srcCompat="@drawable/music_wiki_bg" />
 
         <LinearLayout

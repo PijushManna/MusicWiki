@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.musicwiki.databinding.ListItemAlbumTracksArtistBinding
 import com.example.musicwiki.repo.local.tracks.Tracks
+import com.example.musicwiki.ui.setImage
 
 class TracksAdapter : ListAdapter<Tracks, TracksAdapter.ViewHolder>(
     AlbumArtistsTracksDiffUtilCallback()
@@ -16,7 +17,7 @@ class TracksAdapter : ListAdapter<Tracks, TracksAdapter.ViewHolder>(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Tracks){
             binding.txtItemTitle.text = item.name
-            Glide.with(binding.root.context).load(item.image).into(binding.imgItemLogo)
+            binding.imgItemLogo.setImage(item.image)
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -11,13 +11,14 @@ import com.example.musicwiki.MainViewModel
 import com.example.musicwiki.R
 import com.example.musicwiki.databinding.ListItemAlbumTracksArtistBinding
 import com.example.musicwiki.repo.local.albums.Albums
+import com.example.musicwiki.ui.setImage
 
 class AlbumsAdapter(private val mainViewModel: MainViewModel) : ListAdapter<Albums, AlbumsAdapter.ViewHolder>(AlbumsDiffUtilCallback()) {
     class ViewHolder(private val binding: ListItemAlbumTracksArtistBinding,private val mainViewModel: MainViewModel) :
         RecyclerView.ViewHolder(binding.root) {
             fun bind(item:Albums){
                 binding.txtItemTitle.text = item.name
-                Glide.with(binding.root.context).load(item.image).into(binding.imgItemLogo)
+                binding.imgItemLogo.setImage(item.image)
                 binding.root.setOnClickListener {
                     mainViewModel.currentAlbum = item
                     it.findNavController().navigate(R.id.action_genreFragment_to_albumDetailsFragment)

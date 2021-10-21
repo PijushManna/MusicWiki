@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.musicwiki.MainViewModel
 import com.example.musicwiki.databinding.ArtistsDetailsFragmentBinding
 
@@ -33,6 +34,9 @@ class ArtistsDetailsFragment : Fragment() {
         binding.listAlbumTags.adapter = adapter
         binding.rcrArtistTopAlbums.adapter = artistTopAlbums
         binding.rcrArtistTopTracks.adapter = artistsTopTracks
+        binding.imgBackArtist.setOnClickListener {
+            findNavController().navigateUp()
+        }
         viewModel.artistInfo.observe(viewLifecycleOwner,{
             binding.model = it
             adapter.submitList(it.artist.tags.tag)

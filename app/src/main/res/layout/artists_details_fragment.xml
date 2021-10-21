@@ -12,12 +12,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:id="@+id/frameLayout4"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <FrameLayout
@@ -29,16 +30,16 @@
                     android:id="@+id/img_cover"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/plants_bg"
+                    android:background="@drawable/music_wiki_bg"
                     android:scaleType="centerCrop"
-                    app:set_image="@{model.artist.image[3].text}"
-                    tools:src="@tools:sample/backgrounds/scenic" />
+                    app:set_image="@{model.artist.image[3].text}" />
 
                 <TextView
                     android:id="@+id/txt_album_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="@{model.artist.name}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                     android:textColor="@color/white"
@@ -50,9 +51,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_margin="40dp"
-                    android:text="@{model.artist.stats.playcount}"
                     android:textColor="@color/white"
                     android:textSize="20sp"
+                    app:set_count="@{model.artist.stats.playcount}"
                     tools:text="@tools:sample/us_zipcodes" />
 
                 <TextView
@@ -71,10 +72,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
                     android:layout_margin="40dp"
-                    android:text="@{model.artist.stats.listeners}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/white"
                     android:textSize="20sp"
+                    app:set_count="@{model.artist.stats.listeners}"
                     tools:text="@tools:sample/us_zipcodes" />
 
                 <TextView
@@ -82,11 +83,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
-                    android:layout_marginRight="40dp"
+                    android:layout_marginEnd="40dp"
                     android:layout_marginBottom="18dp"
                     android:text="@string/followers"
                     android:textColor="@color/white"
                     tools:ignore="TextContrastCheck" />
+
+                <ImageButton
+                    android:id="@+id/img_back_artist"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
+                    app:tint="?attr/colorOnPrimary"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
             </FrameLayout>
 
@@ -105,6 +116,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:autoLink="all"
                 android:text="@{model.artist.bio.summary}" />
 
             <TextView
@@ -115,7 +127,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
-                android:text="Top Tracks"
+                android:text="@string/top_tracks"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
 
@@ -139,7 +151,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
-                android:text="Top Albums"
+                android:text="@string/top_albums"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
 
