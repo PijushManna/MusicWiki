@@ -9,4 +9,6 @@ MVVM architechture is used to build the APP. It also uses room offline database 
 <img src="https://github.com/PijushManna/MusicWiki/blob/master/home.png" width="100"> <img src="https://github.com/PijushManna/MusicWiki/blob/master/rock.png" width="100"> <img src="https://github.com/PijushManna/MusicWiki/blob/master/Artists.png" width="100">
 
 
+Please click here to download the app :  [Click Here](https://github.com/PijushManna/MusicWiki/raw/master/app-debug.apk)
+
 
